@@ -16,5 +16,12 @@
         "Access-Control-Allow-Credentials": "true"
       }
     }
+  ],
+  "routers": [
+    {
+      "src": "/users",
+      "methods": ["GET", "POST", "PUT", "DELETE"],
+      "dest": "routes/UserRoute.js"
+    }
   ]
 }
