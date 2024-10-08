@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 5000;
 
 // app.options("", cors(corsConfig));
 app.use(bodyParser.json());
-// app.use(cors(corsConfig));
+app.use(cors());
 
 // Test Build
 app.get("/", (req, res) => {
