@@ -15,6 +15,6 @@ npm start
 | LOGOUT | localhost:8080/users/logout | GET | NO |
 | GET PROFILE | localhost:8080/users/profile | GET | USER/ADMIN |
 | GET ALL PROFILE | localhost:8080/users/all | GET | ADMIN |
-| UPDATE PROFILE | localhost:8080/users/all | PUT | ADMIN |
+| UPDATE PROFILE | localhost:8080/users/updateUser | PUT | ADMIN |
 
 
