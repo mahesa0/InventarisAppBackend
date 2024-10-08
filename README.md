@@ -12,9 +12,9 @@ npm start
 | ------ | ------ | ------ | ------ |
 | LOGIN | localhost:8080/users/login | POST | NO |
 | REGISTER | localhost:8080/users/register | POST | NO |
-| LOGOUT | localhost:8080/users/logout | GET | YES|
-| GET PROFILE | localhost:8080/users/profile | GET | YES |
-| GET ALL PROFILE | localhost:8080/users/all | GET | YES |
-| UPDATE PROFILE | localhost:8080/users/all | PUT | YES |
+| LOGOUT | localhost:8080/users/logout | GET | NO |
+| GET PROFILE | localhost:8080/users/profile | GET | USER/ADMIN |
+| GET ALL PROFILE | localhost:8080/users/all | GET | ADMIN |
+| UPDATE PROFILE | localhost:8080/users/all | PUT | ADMIN |
 
 
