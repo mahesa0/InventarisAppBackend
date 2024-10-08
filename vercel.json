@@ -16,5 +16,13 @@
         "Access-Control-Allow-Credentials": "true"
       }
     }
-  ]
+  ],
+  "functions": {
+    "index.js": {
+      "maxDuration": 15
+    },
+    "routes/*.js": {
+      "maxDuration": 40
+    }
+  }
 }
