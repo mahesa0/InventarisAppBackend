@@ -1,2 +1,2 @@
-||Project KKP||__
+||Project KKP|| \
 RESTful API for Inventaris APP
