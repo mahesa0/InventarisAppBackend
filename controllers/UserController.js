@@ -140,7 +140,7 @@ export const updateProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         error: true,
-        status: "400",
+        status: "404",
         message: `user ${username} not found`,
       });
     }
@@ -200,7 +200,7 @@ export const updateById = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         error: true,
-        status: "400",
+        status: "404",
         message: `user ${username} not found`,
       });
     }
@@ -239,7 +239,7 @@ export const deleteProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         error: true,
-        status: "400",
+        status: "404",
         message: `user ${username} not found`,
       });
     }
@@ -278,7 +278,7 @@ export const deleteById = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         error: true,
-        status: "400",
+        status: "404",
         message: `user ${username} not found`,
       });
     }
