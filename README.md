@@ -20,7 +20,7 @@ npm start
 | GET ALL PROFILE | localhost:8080/users/all | GET | ADMIN |
 | UPDATE PROFILE | localhost:8080/users/updateProfile | PUT | USER/ADMIN |
 | UPDATE USER BY ID | localhost:8080/users/:id | PUT | ADMIN |
-| DELETE PROFILE | localhost:8080/users/deleteProfile | DELETE | ADMIN |
+| DELETE PROFILE | localhost:8080/users/deleteProfile | DELETE | USER/ADMIN |
 | DELETE USER BY ID | localhost:8080/users/:id | DELETE | ADMIN |
 
 ## ROUTES PRODUCTS
