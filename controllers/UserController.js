@@ -92,7 +92,7 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-export const updateUser = async (req, res) => {
+export const updateProfile = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
@@ -127,6 +127,74 @@ export const updateUser = async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
+  }
+};
+
+export const updateById = async (req, res) => {
+  const { id } = req.params;
+  const { username, email, password, role } = req.body;
+
+  try {
+    let user = await User.findById(id);
+    if (!user) {
+      return res.status(404).send("user Not Found");
+    }
+
+    user.username = username || user.username;
+    user.email = email || user.email;
+    user.password = password || user.password;
+    user.role = role || user.role;
+
+    const updateById = await user.save();
+    res.status(200).json({ updateById });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+export const deleteProfile = async (req, res) => {
+  try {
+    let user;
+
+    try {
+      user = await User.findById(req.user.id);
+    } catch (findError) {
+      return res.status(500).send("Server error saat mencari user");
+    }
+
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    try {
+      await user.deleteOne();
+    } catch (removeError) {
+      return res.status(500).send("Server error saat menghapus user");
+    }
+
+    res.json({ msg: "User deleted successfully" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+
+export const deleteById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).send("User Not Found");
+    }
+
+    await user.deleteOne();
+    res.status(200).send("User Successfully Deleted");
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
   }
 };
 

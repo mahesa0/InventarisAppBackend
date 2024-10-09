@@ -4,7 +4,10 @@ import {
   login,
   getUsers,
   getAllUsers,
-  updateUser,
+  updateProfile,
+  updateById,
+  deleteProfile,
+  deleteById,
   logout,
 } from "../controllers/UserController.js";
 import {
@@ -19,6 +22,9 @@ router.post("/login", login);
 router.get("/logout", authMiddleware, logout);
 router.get("/profile", authMiddleware, getUsers);
 router.get("/all", authMiddleware, adminMiddleware, getAllUsers);
-router.put("/updateProfile", authMiddleware, adminMiddleware, updateUser);
+router.put("/updateProfile", authMiddleware, adminMiddleware, updateProfile);
+router.put("/:id", authMiddleware, adminMiddleware, updateById);
+router.delete("/deleteProfile", authMiddleware, deleteProfile);
+router.delete("/:id", deleteById);
 
 export default router;
