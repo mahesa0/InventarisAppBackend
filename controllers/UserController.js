@@ -60,7 +60,7 @@ export const login = async (req, res) => {
       return res.status(400).json({
         error: true,
         status: "400",
-        message: "Invalid Credentials",
+        message: "Username Invalid",
       });
     }
 
@@ -69,7 +69,7 @@ export const login = async (req, res) => {
       return res.status(400).json({
         error: true,
         status: "400",
-        message: "Invalid Credentials",
+        message: "Password Invalid",
       });
     }
 
