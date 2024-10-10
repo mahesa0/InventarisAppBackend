@@ -21,7 +21,11 @@ const PORT = 8080;
 
 // app.options("", cors(corsConfig));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 // Test Build
 app.get("/", (req, res) => {

@@ -13,7 +13,7 @@ export const getProducts = async (req, res) => {
 
 // Post a new product
 export const postProducts = async (req, res) => {
-  const { productName, id_category, quantity, price } = req.body;
+  const { productName, id_category, quantity, price, image } = req.body;
 
   try {
     const newProduct = new Product({
@@ -22,6 +22,7 @@ export const postProducts = async (req, res) => {
       quantity,
       price,
       date,
+      image,
     });
     const saveProduct = await newProduct.save();
     res.status(201).json({ saveProduct });
@@ -47,7 +48,7 @@ export const getProductsById = async (req, res) => {
 // Update a product
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
-  const { productName, id_category, quantity, price, date } = req.body;
+  const { productName, id_category, quantity, price, date, image } = req.body;
 
   try {
     let product = await Product.findById(id);
@@ -61,6 +62,7 @@ export const updateProduct = async (req, res) => {
     product.quantity = quantity || product.quantity;
     product.price = price || product.price;
     product.date = date || product.date;
+    product.image = image || product.image;
 
     const updatedProduct = await product.save();
     res.status(200).json({ updatedProduct });
