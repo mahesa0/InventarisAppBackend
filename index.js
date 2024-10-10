@@ -23,7 +23,8 @@ const PORT = 8080;
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:3000",
+    credentials: true,
   })
 );
 
