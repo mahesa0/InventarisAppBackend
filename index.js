@@ -25,11 +25,15 @@ app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Content-Length", "X-Total-Count"],
+    maxAge: 3600,
+    optionsSuccessStatus: 200,
   })
 );
 
 // Test Build
-app.get("/", (req, res) => {
+app.get("/", (res) => {
   res.send("Welcome To App!");
 });
 
