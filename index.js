@@ -10,17 +10,10 @@ import categoryRoutes from "./routes/CategoryRoutes.js";
 
 dotenv.config();
 
-// const corsConfig = {
-//   origin: "*",
-//   credential: true,
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-// };
-
 const app = express();
 const PORT = 8080;
-
-// app.options("", cors(corsConfig));
 app.use(bodyParser.json());
+app.use(cors());
 app.use(
   cors({
     origin: "http://localhost:3000",
