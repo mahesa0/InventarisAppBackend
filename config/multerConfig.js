@@ -2,7 +2,7 @@ import multer from "multer";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./resource/images");
+    cb(null, "resource/images");
   },
   filename: (req, file, cb) => {
     const uniqueData =

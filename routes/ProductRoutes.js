@@ -1,6 +1,5 @@
 import express from "express";
 import upload from "../config/multerConfig.js";
-// import multer from "multer";
 
 import {
   getProducts,
