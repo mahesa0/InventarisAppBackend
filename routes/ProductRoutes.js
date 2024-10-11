@@ -1,4 +1,7 @@
 import express from "express";
+import upload from "../config/multerConfig.js";
+// import multer from "multer";
+
 import {
   getProducts,
   getProductsById,
@@ -15,7 +18,7 @@ const router = express.Router();
 
 router.get("/", authMiddleware, getProducts);
 router.get("/:productName", authMiddleware, getProductsById);
-router.post("/", authMiddleware, postProducts);
+router.post("/", upload.single("image"), authMiddleware, postProducts);
 router.put("/:id", authMiddleware, adminMiddleware, updateProduct);
 router.delete("/:id", authMiddleware, adminMiddleware, deleteProduct);
 

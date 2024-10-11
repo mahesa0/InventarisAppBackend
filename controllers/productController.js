@@ -13,19 +13,35 @@ export const getProducts = async (req, res) => {
 
 // Post a new product
 export const postProducts = async (req, res) => {
-  const { productName, id_category, quantity, price, image } = req.body;
+  const { productName, category, quantity, price, totalPrice, date } = req.body;
+  const image = req.file ? req.file.path : null;
 
   try {
     const newProduct = new Product({
       productName,
-      id_category,
+      category,
       quantity,
       price,
+      totalPrice,
       date,
       image,
     });
-    const saveProduct = await newProduct.save();
-    res.status(201).json({ saveProduct });
+    await newProduct.save();
+
+    res.status(201).json({
+      error: "false",
+      status: "201",
+      massage: "data berhasil di input",
+      data: {
+        productName,
+        category,
+        quantity,
+        price,
+        totalPrice,
+        date: new Date().toISOString().split("T")[0],
+        image,
+      },
+    });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server Error");
@@ -48,7 +64,7 @@ export const getProductsById = async (req, res) => {
 // Update a product
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
-  const { productName, id_category, quantity, price, date, image } = req.body;
+  const { productName, category, quantity, price, date, image } = req.body;
 
   try {
     let product = await Product.findById(id);
@@ -58,7 +74,7 @@ export const updateProduct = async (req, res) => {
     }
 
     product.productName = productName || product.productName;
-    product.id_category = id_category || product.id_category;
+    product.category = category || product.category;
     product.quantity = quantity || product.quantity;
     product.price = price || product.price;
     product.date = date || product.date;

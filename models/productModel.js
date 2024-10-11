@@ -7,7 +7,7 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    id_category: {
+    category: {
       type: String,
       required: true,
     },
@@ -29,6 +29,7 @@ const ProductSchema = new mongoose.Schema(
     date: {
       type: Date,
       default: Date.now,
+      required: false,
     },
     image: {
       type: String,

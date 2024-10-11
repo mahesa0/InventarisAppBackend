@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
+import multer from "multer";
+import path from "path";
 
 import userRoutes from "./routes/UserRoute.js";
 import productRoutes from "./routes/ProductRoutes.js";
@@ -11,24 +13,20 @@ import categoryRoutes from "./routes/CategoryRoutes.js";
 dotenv.config();
 
 const app = express();
+
+app.use(cors());
 const PORT = 8080;
 app.use(bodyParser.json());
-app.use(cors());
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["Content-Length", "X-Total-Count"],
-    maxAge: 3600,
-    optionsSuccessStatus: 200,
-  })
-);
-
-// Test Build
-app.get("/", (res) => {
-  res.send("Welcome To App!");
-});
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     exposedHeaders: ["Content-Length", "X-Total-Count"],
+//     maxAge: 3600,
+//     optionsSuccessStatus: 200,
+//   })
+// );
 
 // Routes
 app.use("/users", userRoutes);
