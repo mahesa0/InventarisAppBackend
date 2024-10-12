@@ -18,7 +18,7 @@ if (!fs.existsSync(imagesDir)) {
 // Konfigurasi storage multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, imagesDir);
+    cb(null, "/tmp");
   },
   filename: (req, file, cb) => {
     const uniqueData =
@@ -29,23 +29,18 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileFilter = (req, file, cb) => {
-  // Hanya izinkan file dengan tipe berikut (MIME types)
-  const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
-  if (allowedTypes.includes(file.mimetype)) {
-    cb(null, true); // Lolos filter
-  } else {
-    cb(new Error("Hanya file gambar yang diperbolehkan!"), false); // Tolak file
-  }
-};
-
 // Konfigurasi multer dengan batas ukuran dan jenis file
 const upload = multer({
   storage: storage,
-  limits: {
-    fileSize: 2 * 1024 * 1024, // Maksimum ukuran file 2MB
+  limits: { fileSize: 2 * 1024 * 1024 }, // Maksimal 2MB
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Hanya file gambar yang diperbolehkan"), false);
+    }
   },
-  fileFilter: fileFilter,
 });
 
 export default upload;
