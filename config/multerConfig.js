@@ -10,10 +10,21 @@ const __dirname = path.dirname(__filename);
 // Path ke folder tempat menyimpan gambar
 const imagesDir = path.join(__dirname, "../tmp");
 
+// Membuat folder jika belum ada
+if (!fs.existsSync(imagesDir)) {
+  fs.mkdirSync(imagesDir, { recursive: true });
+}
+
 // Konfigurasi storage multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, imagesDir);
+    // Cek apakah direktori '/tmp' ada
+    const tempDir = "/tmp"; // Pastikan ini adalah path yang valid di sistem Anda
+    if (fs.existsSync(tempDir)) {
+      cb(null, tempDir); // Gunakan '/tmp' jika ada
+    } else {
+      cb(null, imagesDir); // Gunakan imagesDir jika '/tmp' tidak ada
+    }
   },
   filename: (req, file, cb) => {
     const uniqueData =
