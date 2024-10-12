@@ -20,7 +20,7 @@ const router = express.Router();
 router.post("/register", register);
 router.post("/login", login);
 router.get("/logout", authMiddleware, logout);
-router.get("/profile", authMiddleware, getUsers);
+router.get("/:username", authMiddleware, getUsers);
 router.get("/all", authMiddleware, adminMiddleware, getAllUsers);
 router.put("/updateProfile", authMiddleware, updateProfile);
 router.put("/:id", authMiddleware, adminMiddleware, updateById);

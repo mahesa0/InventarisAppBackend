@@ -3,27 +3,22 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// Meniru __dirname di ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Path ke folder tempat menyimpan gambar
 const imagesDir = path.join(__dirname, "../tmp");
 
-// Membuat folder jika belum ada
 if (!fs.existsSync(imagesDir)) {
   fs.mkdirSync(imagesDir, { recursive: true });
 }
 
-// Konfigurasi storage multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    // Cek apakah direktori '/tmp' ada
-    const tempDir = "/tmp"; // Pastikan ini adalah path yang valid di sistem Anda
+    const tempDir = "/tmp";
     if (fs.existsSync(tempDir)) {
-      cb(null, tempDir); // Gunakan '/tmp' jika ada
+      cb(null, tempDir);
     } else {
-      cb(null, imagesDir); // Gunakan imagesDir jika '/tmp' tidak ada
+      cb(null, imagesDir);
     }
   },
   filename: (req, file, cb) => {
@@ -35,10 +30,9 @@ const storage = multer.diskStorage({
   },
 });
 
-// Konfigurasi multer dengan batas ukuran dan jenis file
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 2 * 1024 * 1024 }, // Maksimal 2MB
+  limits: { fileSize: 2 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
     if (allowedTypes.includes(file.mimetype)) {

@@ -107,7 +107,9 @@ export const login = async (req, res) => {
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.findById(req.user.id).select("-password");
+    const users = await User.findOne({ username: req.params.username }).select(
+      "-password"
+    );
     res.json(users);
   } catch (err) {
     console.error(err.message);

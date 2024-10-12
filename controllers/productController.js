@@ -6,8 +6,46 @@ export const getProducts = async (req, res) => {
     let products = await Product.find();
     res.status(201).json({ products });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({
+        error: true,
+        status: 400,
+        message: "Product not found",
+      });
+    }
+
+    console.error(error.message);
+    res.status(500).json({
+      error: "true",
+      status: "500",
+      massage: "Ada kesalahan pada server",
+    });
+  }
+};
+
+// Get a product by name
+export const getProductsById = async (req, res) => {
+  try {
+    let product = await Product.findOne({
+      productName: req.params.productName,
+    });
+
+    if (!product) {
+      return res.status(404).json({
+        error: true,
+        status: 404,
+        message: "Produk tidak ditemukan",
+      });
+    }
+
+    res.status(200).json({ product });
+  } catch (error) {
     console.log(error.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({
+      error: true,
+      status: 500,
+      message: "Ada kesalahan pada server",
+    });
   }
 };
 
@@ -53,35 +91,32 @@ export const postProducts = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Server Error");
-  }
-};
+    if (error.code === 11000) {
+      return res.status(400).json({
+        error: true,
+        status: 400,
+        message: "Nama produk sudah ada. Silakan gunakan nama yang berbeda",
+      });
+    }
 
-// Get a product by name
-export const getProductsById = async (req, res) => {
-  try {
-    let product = await Product.findOne({
-      productName: req.params.productName,
+    console.error(error.message);
+    res.status(500).json({
+      error: "true",
+      status: "500",
+      massage: "Ada kesalahan pada server",
     });
-    res.status(201).json({ product });
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send("Product Not Found");
   }
 };
 
 // Update a product
 export const updateProduct = async (req, res) => {
-  const { id } = req.params; // Mengambil ID dari parameter URL
+  const { id } = req.params;
   const { productName, category, quantity, price, totalPrice, date } = req.body;
-  const image = req.file ? req.file.path : null; // Mengambil gambar baru jika ada
+  const image = req.file ? req.file.path : null;
 
-  // Hitung totalPrice jika tidak disediakan
   const finalTotalPrice = totalPrice || price * quantity;
 
   try {
-    // Cari produk berdasarkan ID
     let product = await Product.findById(id);
 
     if (!product) {
@@ -92,19 +127,16 @@ export const updateProduct = async (req, res) => {
       });
     }
 
-    // Perbarui data produk jika disediakan dalam request body
     if (productName) product.productName = productName;
     if (category) product.category = category;
     if (quantity) product.quantity = quantity;
     if (price) product.price = price;
     if (finalTotalPrice) product.totalPrice = finalTotalPrice;
     if (date) product.date = date;
-    if (image) product.image = image; // Update gambar jika ada gambar baru yang diunggah
+    if (image) product.image = image;
 
-    // Simpan perubahan
     await product.save();
 
-    // Kembalikan response sukses
     res.status(200).json({
       error: false,
       status: 200,
@@ -116,16 +148,24 @@ export const updateProduct = async (req, res) => {
         quantity: product.quantity,
         price: product.price,
         totalPrice: product.totalPrice,
-        date: new Date(product.date).toISOString().split("T")[0], // Format tanggal
+        date: new Date(product.date).toISOString().split("T")[0],
         image: product.image,
       },
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({
+        error: true,
+        status: 400,
+        message: "Nama produk sudah ada. Silakan gunakan nama yang berbeda",
+      });
+    }
+
     console.error(error.message);
     res.status(500).json({
-      error: true,
-      status: 500,
-      message: "Server Error",
+      error: "true",
+      status: "500",
+      massage: "Ada kesalahan pada server",
     });
   }
 };
@@ -138,13 +178,23 @@ export const deleteProduct = async (req, res) => {
     const product = await Product.findById(id);
 
     if (!product) {
-      return res.status(404).send("Product Not Found");
+      return res.status(404).json({
+        error: true,
+        status: 404,
+        message: "product not found",
+      });
     }
 
     await product.deleteOne();
-    res.status(200).send("Product Successfully Deleted");
+    res
+      .status(200)
+      .json({ error: "false", status: 200, message: "product deleted" });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({
+      error: "true",
+      status: "500",
+      massage: "Ada kesalahan pada server",
+    });
   }
 };
