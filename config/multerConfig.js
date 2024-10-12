@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Path ke folder tempat menyimpan gambar
-const imagesDir = path.join(__dirname, "/tmp");
+const imagesDir = path.join(__dirname, "../tmp");
 
 // Konfigurasi storage multer
 const storage = multer.diskStorage({
