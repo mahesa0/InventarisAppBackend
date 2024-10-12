@@ -16,7 +16,7 @@ npm start
 | LOGIN | localhost:8080/users/login | POST | USER |
 | REGISTER | localhost:8080/users/register | POST | USER |
 | LOGOUT | localhost:8080/users/logout | GET | USER |
-| GET PROFILE | localhost:8080/users/profile | GET | USER/ADMIN |
+| GET PROFILE | localhost:8080/users/:username | GET | USER/ADMIN |
 | GET ALL PROFILE | localhost:8080/users/all | GET | ADMIN |
 | UPDATE PROFILE | localhost:8080/users/updateProfile | PUT | USER/ADMIN |
 | UPDATE USER BY ID | localhost:8080/users/:id | PUT | ADMIN |
