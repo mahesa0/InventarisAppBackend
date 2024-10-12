@@ -10,11 +10,6 @@ const __dirname = path.dirname(__filename);
 // Path ke folder tempat menyimpan gambar
 const imagesDir = path.join(__dirname, "/tmp");
 
-// Membuat folder jika belum ada
-if (!fs.existsSync(imagesDir)) {
-  fs.mkdirSync(imagesDir, { recursive: true });
-}
-
 // Konfigurasi storage multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
