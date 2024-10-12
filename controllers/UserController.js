@@ -132,7 +132,6 @@ export const getUsers = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const allUsers = await User.find().select("-password");
-    console.log(allUsers);
 
     if (allUsers.length > 0) {
       return res.status(200).json({
