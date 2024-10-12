@@ -8,8 +8,8 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/index.js",
+      "src": "/images/(.*)",
+      "dest": "/resource/images/$1",
       "methods": ["GET", "POST", "PUT", "DELETE"]
     }
   ]
