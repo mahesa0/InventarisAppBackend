@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Path ke folder tempat menyimpan gambar
-const imagesDir = path.join(__dirname, "../tmp");
+const imagesDir = path.join(__dirname, "/tmp");
 
 // Membuat folder jika belum ada
 if (!fs.existsSync(imagesDir)) {
@@ -18,7 +18,7 @@ if (!fs.existsSync(imagesDir)) {
 // Konfigurasi storage multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "/tmp");
+    cb(null, imagesDir);
   },
   filename: (req, file, cb) => {
     const uniqueData =
