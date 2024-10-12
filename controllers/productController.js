@@ -73,28 +73,60 @@ export const getProductsById = async (req, res) => {
 
 // Update a product
 export const updateProduct = async (req, res) => {
-  const { id } = req.params;
-  const { productName, category, quantity, price, date, image } = req.body;
+  const { id } = req.params; // Mengambil ID dari parameter URL
+  const { productName, category, quantity, price, totalPrice, date } = req.body;
+  const image = req.file ? req.file.path : null; // Mengambil gambar baru jika ada
+
+  // Hitung totalPrice jika tidak disediakan
+  const finalTotalPrice = totalPrice || price * quantity;
 
   try {
+    // Cari produk berdasarkan ID
     let product = await Product.findById(id);
 
     if (!product) {
-      return res.status(404).send("Product Not Found");
+      return res.status(404).json({
+        error: true,
+        status: 404,
+        message: "Produk tidak ditemukan",
+      });
     }
 
-    product.productName = productName || product.productName;
-    product.category = category || product.category;
-    product.quantity = quantity || product.quantity;
-    product.price = price || product.price;
-    product.date = date || product.date;
-    product.image = image || product.image;
+    // Perbarui data produk jika disediakan dalam request body
+    if (productName) product.productName = productName;
+    if (category) product.category = category;
+    if (quantity) product.quantity = quantity;
+    if (price) product.price = price;
+    if (finalTotalPrice) product.totalPrice = finalTotalPrice;
+    if (date) product.date = date;
+    if (image) product.image = image; // Update gambar jika ada gambar baru yang diunggah
 
-    const updatedProduct = await product.save();
-    res.status(200).json({ updatedProduct });
+    // Simpan perubahan
+    await product.save();
+
+    // Kembalikan response sukses
+    res.status(200).json({
+      error: false,
+      status: 200,
+      message: "Produk berhasil diperbarui",
+      data: {
+        id: product._id,
+        productName: product.productName,
+        category: product.category,
+        quantity: product.quantity,
+        price: product.price,
+        totalPrice: product.totalPrice,
+        date: new Date(product.date).toISOString().split("T")[0], // Format tanggal
+        image: product.image,
+      },
+    });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({
+      error: true,
+      status: 500,
+      message: "Server Error",
+    });
   }
 };
 

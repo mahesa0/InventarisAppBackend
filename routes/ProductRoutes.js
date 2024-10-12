@@ -18,7 +18,13 @@ const router = express.Router();
 router.get("/", authMiddleware, getProducts);
 router.get("/:productName", authMiddleware, getProductsById);
 router.post("/", authMiddleware, upload.single("image"), postProducts);
-router.put("/:id", authMiddleware, adminMiddleware, updateProduct);
+router.put(
+  "/:id",
+  authMiddleware,
+  adminMiddleware,
+  upload.single("image"),
+  updateProduct
+);
 router.delete("/:id", authMiddleware, adminMiddleware, deleteProduct);
 
 export default router;

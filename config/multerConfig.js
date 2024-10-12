@@ -8,17 +8,26 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Path ke folder tempat menyimpan gambar
-const imagesDir = path.join(__dirname, "../tmp");
+const dir1 = path.join(__dirname, "../tmp");
+const dir2 = path.join(__dirname, "/tmp");
 
 // Membuat folder jika belum ada
-if (!fs.existsSync(imagesDir)) {
-  fs.mkdirSync(imagesDir, { recursive: true });
-}
+const ensureDirectoryExistence = (dir) => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+};
+
+// Pastikan kedua direktori ada
+ensureDirectoryExistence(dir1);
+ensureDirectoryExistence(dir2);
 
 // Konfigurasi storage multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "/tmp");
+    // Pilih direktori berdasarkan ketersediaan
+    const dirToUse = fs.existsSync(dir1) ? dir1 : dir2;
+    cb(null, dirToUse);
   },
   filename: (req, file, cb) => {
     const uniqueData =
