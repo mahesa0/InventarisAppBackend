@@ -21,7 +21,7 @@ router.post("/register", register);
 router.post("/login", login);
 router.get("/logout", authMiddleware, logout);
 router.get("/:username", authMiddleware, getUsers);
-router.get("/all", authMiddleware, adminMiddleware, getAllUsers);
+router.get("/get/all", authMiddleware, adminMiddleware, getAllUsers);
 router.put("/updateProfile", authMiddleware, updateProfile);
 router.put("/:id", authMiddleware, adminMiddleware, updateById);
 router.delete("/deleteProfile", authMiddleware, deleteProfile);

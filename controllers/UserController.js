@@ -110,13 +110,21 @@ export const getUsers = async (req, res) => {
     const users = await User.findOne({ username: req.params.username }).select(
       "-password"
     );
+
+    if (!users) {
+      return res.status(404).json({
+        error: true,
+        status: 404,
+        message: "Pengguna tidak ditemukan",
+      });
+    }
     res.json(users);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({
       error: true,
-      status: "500",
-      massage: "Server error",
+      status: 500,
+      message: "Server error",
     });
   }
 };
@@ -124,13 +132,28 @@ export const getUsers = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const allUsers = await User.find().select("-password");
+    console.log(allUsers);
+
+    if (allUsers.length > 0) {
+      return res.status(200).json({
+        error: false,
+        status: 200,
+        data: allUsers,
+      });
+    } else if (allUsers.length === 0) {
+      return res.status(404).json({
+        error: true,
+        status: 404,
+        message: "Tidak ada pengguna ditemukan",
+      });
+    }
     res.json(allUsers);
   } catch (error) {
-    console.error(err.message);
+    console.error(error.message);
     res.status(500).json({
       error: true,
-      status: "500",
-      massage: "Server error",
+      status: 500,
+      message: "Server error",
     });
   }
 };
