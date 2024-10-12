@@ -13,9 +13,9 @@ npm start
 
 | ACTION | API | METHOD | AUTH |
 | ------ | ------ | ------ | ------ |
-| LOGIN | localhost:8080/users/login | POST | NO |
-| REGISTER | localhost:8080/users/register | POST | NO |
-| LOGOUT | localhost:8080/users/logout | GET | NO |
+| LOGIN | localhost:8080/users/login | POST | USER |
+| REGISTER | localhost:8080/users/register | POST | USER |
+| LOGOUT | localhost:8080/users/logout | GET | USER |
 | GET PROFILE | localhost:8080/users/profile | GET | USER/ADMIN |
 | GET ALL PROFILE | localhost:8080/users/all | GET | ADMIN |
 | UPDATE PROFILE | localhost:8080/users/updateProfile | PUT | USER/ADMIN |
@@ -27,4 +27,9 @@ npm start
 
 | ACTION | API | METHOD | AUTH |
 | ------ | ------ | ------ | ------ |
+| GET ALL PRODUCTS | localhost:8080/products | GET | USER |
+| GET PRODUCT BY NAME | localhost:8080/products/:productName | GET | USER |
+| POST PRODUCT | localhost:8080/products | POST | USER |
+| UPDATE PRODUCTS | localhost:8080/products/:id | PUT | USER/ADMIN |
+| DELETE PRODUCTS | localhost:8080/products/:id | DELETE | USER/ADMIN |
 
