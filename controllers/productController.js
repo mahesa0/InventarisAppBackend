@@ -16,13 +16,23 @@ export const postProducts = async (req, res) => {
   const { productName, category, quantity, price, totalPrice, date } = req.body;
   const image = req.file ? req.file.path : null;
 
+  if (!image) {
+    return res.status(400).json({
+      error: true,
+      status: 400,
+      message: "Gambar produk harus diunggah",
+    });
+  }
+
+  const finalTotalPrice = totalPrice || price * quantity;
+
   try {
     const newProduct = new Product({
       productName,
       category,
       quantity,
       price,
-      totalPrice,
+      totalPrice: finalTotalPrice,
       date,
       image,
     });
@@ -37,9 +47,9 @@ export const postProducts = async (req, res) => {
         category,
         quantity,
         price,
-        totalPrice,
+        totalPrice: finalTotalPrice,
         date: new Date().toISOString().split("T")[0],
-        image,
+        image: image,
       },
     });
   } catch (error) {
