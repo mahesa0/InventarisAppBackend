@@ -107,9 +107,16 @@ export const login = async (req, res) => {
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.findOne({ username: req.params.username }).select(
-      "-password"
-    );
+    if (!token) {
+      return res.status(401).json({
+        error: true,
+        status: 401,
+        message: "Token tidak ada atau tidak valid",
+      });
+    }
+    const users = await User.findOne({
+      username: req.params.username,
+    }).select("-password");
 
     if (!users) {
       return res.status(404).json({
