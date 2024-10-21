@@ -13,23 +13,23 @@ npm start
 
 | ACTION | API | METHOD | AUTH |
 | ------ | ------ | ------ | ------ |
-| LOGIN | localhost:8080/users/login | POST | USER |
-| REGISTER | localhost:8080/users/register | POST | USER |
-| LOGOUT | localhost:8080/users/logout | GET | USER |
-| GET PROFILE | localhost:8080/users/:username | GET | USER/ADMIN |
-| GET ALL PROFILE | localhost:8080/users/get/all | GET | ADMIN |
-| UPDATE PROFILE | localhost:8080/users/updateProfile | PUT | USER/ADMIN |
-| UPDATE USER BY ID | localhost:8080/users/:id | PUT | ADMIN |
-| DELETE PROFILE | localhost:8080/users/deleteProfile | DELETE | USER/ADMIN |
-| DELETE USER BY ID | localhost:8080/users/:id | DELETE | ADMIN |
+| LOGIN | inventaris-app-backend.vercel.app/users/login | POST | USER |
+| REGISTER | inventaris-app-backend.vercel.app/users/register | POST | USER |
+| LOGOUT | inventaris-app-backend.vercel.app/users/logout | GET | USER |
+| GET PROFILE | inventaris-app-backend.vercel.app/users/:username | GET | USER/ADMIN |
+| GET ALL PROFILE | inventaris-app-backend.vercel.app/users/get/all | GET | ADMIN |
+| UPDATE PROFILE | inventaris-app-backend.vercel.app/users/updateProfile | PUT | USER/ADMIN |
+| UPDATE USER BY ID | inventaris-app-backend.vercel.app/users/:id | PUT | ADMIN |
+| DELETE PROFILE | inventaris-app-backend.vercel.app/users/deleteProfile | DELETE | USER/ADMIN |
+| DELETE USER BY ID | inventaris-app-backend.vercel.app/users/:id | DELETE | ADMIN |
 
 ## ROUTES PRODUCTS
 
 | ACTION | API | METHOD | AUTH |
 | ------ | ------ | ------ | ------ |
-| GET ALL PRODUCTS | localhost:8080/products | GET | USER |
-| GET PRODUCT BY NAME | localhost:8080/products/:productName | GET | USER |
-| POST PRODUCT | localhost:8080/products | POST | USER |
-| UPDATE PRODUCTS | localhost:8080/products/:id | PUT | USER/ADMIN |
-| DELETE PRODUCTS | localhost:8080/products/:id | DELETE | USER/ADMIN |
+| GET ALL PRODUCTS | inventaris-app-backend.vercel.app/products | GET | USER |
+| GET PRODUCT BY NAME | inventaris-app-backend.vercel.app/products/:productName | GET | USER |
+| POST PRODUCT | inventaris-app-backend.vercel.app/products | POST | USER |
+| UPDATE PRODUCTS | inventaris-app-backend.vercel.app/products/:id | PUT | USER/ADMIN |
+| DELETE PRODUCTS | inventaris-app-backend.vercel.app/products/:id | DELETE | USER/ADMIN |
 
