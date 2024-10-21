@@ -1,8 +1,8 @@
 import multer from "multer";
-import bucket from "./firebaseConfig.js"; // Pastikan Anda mengimpor bucket yang telah dikonfigurasi
-import { v4 as uuidv4 } from "uuid"; // Untuk menghasilkan ID unik
+import bucket from "./firebaseConfig.js";
+import { v4 as uuidv4 } from "uuid";
 
-const storage = multer.memoryStorage(); // Gunakan memoryStorage untuk menyimpan file di memori
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage: storage,
@@ -17,18 +17,17 @@ const upload = multer({
   },
 });
 
-// Middleware untuk meng-upload file ke Firebase Cloud Storage
 const uploadToFirebase = async (req, res, next) => {
   if (!req.file) return next();
 
-  const token = uuidv4(); // Buat token unik
+  const token = uuidv4();
 
   const blob = bucket.file(`images/${uuidv4()}_${req.file.originalname}`);
   const blobStream = blob.createWriteStream({
     metadata: {
       contentType: req.file.mimetype,
       metadata: {
-        firebaseStorageDownloadTokens: token, // Tambahkan token di sini
+        firebaseStorageDownloadTokens: token,
       },
     },
   });
@@ -38,12 +37,10 @@ const uploadToFirebase = async (req, res, next) => {
   });
 
   blobStream.on("finish", async () => {
-    // URL dengan download token yang valid
     const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${
       bucket.name
     }/o/${encodeURIComponent(blob.name)}?alt=media&token=${token}`;
 
-    // Simpan URL ke dalam req untuk digunakan di controller
     req.imageUrl = imageUrl;
     next();
   });
