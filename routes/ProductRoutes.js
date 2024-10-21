@@ -1,5 +1,5 @@
 import express from "express";
-import upload from "../config/multerConfig.js";
+import { upload, uploadToFirebase } from "../config/multerConfig.js";
 
 import {
   getProducts,
@@ -17,12 +17,19 @@ const router = express.Router();
 
 router.get("/", authMiddleware, getProducts);
 router.get("/:productName", authMiddleware, getProductsById);
-router.post("/", authMiddleware, upload.single("image"), postProducts);
+router.post(
+  "/",
+  authMiddleware,
+  upload.single("image"),
+  uploadToFirebase,
+  postProducts
+);
 router.put(
   "/:id",
   authMiddleware,
   adminMiddleware,
   upload.single("image"),
+  uploadToFirebase,
   updateProduct
 );
 router.delete("/:id", authMiddleware, adminMiddleware, deleteProduct);

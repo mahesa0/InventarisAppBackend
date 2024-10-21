@@ -76,25 +76,20 @@ export const login = async (req, res) => {
     const payload = {
       user: { id: user.id, role: user.role },
     };
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" },
-      (err, token) => {
-        if (err) throw err;
-        res.json({
-          error: false,
-          status: "200",
-          message: "Logged In Successfully",
-          token,
-          user: {
-            username: user.username,
-            email: user.email,
-            role: user.role,
-          },
-        });
-      }
-    );
+    jwt.sign(payload, process.env.JWT_SECRET, (err, token) => {
+      if (err) throw err;
+      res.json({
+        error: false,
+        status: "200",
+        message: "Logged In Successfully",
+        token,
+        user: {
+          username: user.username,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({

@@ -52,7 +52,7 @@ export const getProductsById = async (req, res) => {
 // Post a new product
 export const postProducts = async (req, res) => {
   const { productName, category, quantity, price, totalPrice, date } = req.body;
-  const image = req.file ? req.file.path : null;
+  const image = req.imageUrl || null; // Dapatkan URL dari req
 
   if (!image) {
     return res.status(400).json({
@@ -112,7 +112,7 @@ export const postProducts = async (req, res) => {
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { productName, category, quantity, price, totalPrice, date } = req.body;
-  const image = req.file ? req.file.path : null;
+  const image = req.imageUrl || null; // Dapatkan URL dari req
 
   const finalTotalPrice = totalPrice || price * quantity;
 

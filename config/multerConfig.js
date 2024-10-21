@@ -1,34 +1,8 @@
 import multer from "multer";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import bucket from "./firebaseConfig.js"; // Pastikan Anda mengimpor bucket yang telah dikonfigurasi
+import { v4 as uuidv4 } from "uuid"; // Untuk menghasilkan ID unik
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const imagesDir = path.join(__dirname, "../tmp");
-
-if (!fs.existsSync(imagesDir)) {
-  fs.mkdirSync(imagesDir, { recursive: true });
-}
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const tempDir = "/tmp";
-    if (fs.existsSync(tempDir)) {
-      cb(null, tempDir);
-    } else {
-      cb(null, imagesDir);
-    }
-  },
-  filename: (req, file, cb) => {
-    const uniqueData =
-      new Date().toISOString().split("T")[0] + "_" + Math.random();
-    const split = file.originalname.split(".");
-    const format = split[split.length - 1];
-    cb(null, file.fieldname + "_" + uniqueData + "." + format);
-  },
-});
+const storage = multer.memoryStorage(); // Gunakan memoryStorage untuk menyimpan file di memori
 
 const upload = multer({
   storage: storage,
@@ -43,4 +17,38 @@ const upload = multer({
   },
 });
 
-export default upload;
+// Middleware untuk meng-upload file ke Firebase Cloud Storage
+const uploadToFirebase = async (req, res, next) => {
+  if (!req.file) return next();
+
+  const token = uuidv4(); // Buat token unik
+
+  const blob = bucket.file(`images/${uuidv4()}_${req.file.originalname}`);
+  const blobStream = blob.createWriteStream({
+    metadata: {
+      contentType: req.file.mimetype,
+      metadata: {
+        firebaseStorageDownloadTokens: token, // Tambahkan token di sini
+      },
+    },
+  });
+
+  blobStream.on("error", (error) => {
+    next(error);
+  });
+
+  blobStream.on("finish", async () => {
+    // URL dengan download token yang valid
+    const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${
+      bucket.name
+    }/o/${encodeURIComponent(blob.name)}?alt=media&token=${token}`;
+
+    // Simpan URL ke dalam req untuk digunakan di controller
+    req.imageUrl = imageUrl;
+    next();
+  });
+
+  blobStream.end(req.file.buffer);
+};
+
+export { upload, uploadToFirebase };
