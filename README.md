@@ -13,23 +13,23 @@ npm start
 
 | ACTION | API | METHOD | AUTH |
 | ------ | ------ | ------ | ------ |
-| LOGIN | localhost:8080/users/login | POST | USER |
-| REGISTER | localhost:8080/users/register | POST | USER |
-| LOGOUT | localhost:8080/users/logout | GET | USER |
-| GET PROFILE | localhost:8080/users/:username | GET | USER/ADMIN |
-| GET ALL PROFILE | localhost:8080/users/get/all | GET | ADMIN |
-| UPDATE PROFILE | localhost:8080/users/updateProfile | PUT | USER/ADMIN |
-| UPDATE USER BY ID | localhost:8080/users/:id | PUT | ADMIN |
-| DELETE PROFILE | localhost:8080/users/deleteProfile | DELETE | USER/ADMIN |
-| DELETE USER BY ID | localhost:8080/users/:id | DELETE | ADMIN |
+| LOGIN | http://localhost:8080/users/login | POST | USER |
+| REGISTER | http://localhost:8080/users/register | POST | USER |
+| LOGOUT | http://localhost:8080/users/logout | GET | USER |
+| GET PROFILE | http://localhost:8080/users/:username | GET | USER/ADMIN |
+| GET ALL PROFILE | http://localhost:8080/users/get/all | GET | ADMIN |
+| UPDATE PROFILE | http://localhost:8080/users/updateProfile | PUT | USER/ADMIN |
+| UPDATE USER BY ID | http://localhost:8080/users/:id | PUT | ADMIN |
+| DELETE PROFILE | http://localhost:8080/users/deleteProfile | DELETE | USER/ADMIN |
+| DELETE USER BY ID | http://localhost:8080/users/:id | DELETE | ADMIN |
 
 ## ROUTES PRODUCTS
 
 | ACTION | API | METHOD | AUTH |
 | ------ | ------ | ------ | ------ |
-| GET ALL PRODUCTS | localhost:8080/products | GET | USER |
-| GET PRODUCT BY NAME | localhost:8080/products/:productName | GET | USER |
-| POST PRODUCT | localhost:8080/products | POST | USER |
-| UPDATE PRODUCTS | localhost:8080/products/:id | PUT | USER/ADMIN |
-| DELETE PRODUCTS | localhost:8080/products/:id | DELETE | USER/ADMIN |
+| GET ALL PRODUCTS | http://localhost:8080/products | GET | USER |
+| GET PRODUCT BY NAME | http://localhost:8080/products/:productName | GET | USER |
+| POST PRODUCT | http://localhost:8080/products | POST | USER |
+| UPDATE PRODUCTS | http://localhost:8080/products/:id | PUT | USER/ADMIN |
+| DELETE PRODUCTS | http://localhost:8080/products/:id | DELETE | USER/ADMIN |
 
