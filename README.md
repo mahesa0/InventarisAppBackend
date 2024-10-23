@@ -1,5 +1,5 @@
 # Project KKP 
-RESTful API untuk Back-End Inventaris APP
+RESTful API untuk Back-End Inventaris APP menggunakan tools nodeJS, expressJS, mongodb, dan firebase 
 
 ## Installation
 ```sh
@@ -8,6 +8,7 @@ npm start
 ```
 
 > Tambahkan file .env untuk Environment Variables dan isi (JWT_SECRET = mysecretkey) dan PORT, MONGODB_URI dengan milikmu sendiri
+> gunakan config service account firebase mu sendiri, yang ada disini hanya contoh
 
 ## ROUTES USERS
 
