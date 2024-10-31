@@ -7,8 +7,7 @@ npm install
 npm start
 ```
 
-> Tambahkan file .env untuk Environment Variables dan isi (JWT_SECRET = mysecretkey) dan PORT, MONGODB_URI dengan milikmu sendiri
-> gunakan config service account firebase mu sendiri, yang ada disini hanya contoh
+> Tambahkan file .env untuk Environment Variables dan isi (JWT_SECRET = mysecretkey), MONGODB_URI dan service account firebase dengan milikmu sendiri
 
 ## ROUTES USERS
 
