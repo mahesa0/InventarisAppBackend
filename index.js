@@ -6,6 +6,7 @@ import cors from "cors";
 
 import userRoutes from "./routes/UserRoute.js";
 import productRoutes from "./routes/ProductRoutes.js";
+import { authMiddleware } from "./middleware/UserMiddleware.js";
 
 dotenv.config();
 
@@ -43,9 +44,13 @@ app.use(cors(corsOptions));
 const PORT = 8080;
 app.use(bodyParser.json());
 
-// Routes
-app.use("/users", userRoutes);
-app.use("/products", productRoutes);
+// Public routes (tidak memerlukan autentikasi)
+app.use("/users/login", userRoutes);
+app.use("/users/register", userRoutes);
+
+// Protected routes (memerlukan autentikasi)
+app.use("/users", authMiddleware, userRoutes);
+app.use("/products", authMiddleware, productRoutes);
 
 // Database Connection
 mongoose

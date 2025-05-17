@@ -1,6 +1,11 @@
 import jwt from "jsonwebtoken";
 
 export const authMiddleware = (req, res, next) => {
+  // Lewati autentikasi untuk permintaan OPTIONS
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+
   let token;
   try {
     const authHeader = req.headers.authorization;
